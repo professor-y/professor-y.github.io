@@ -71,10 +71,14 @@ body {
   z-index: 10; /*stacked above other elements*/
 }
 
-.nav-button:hover,
-.nav-button:touched {
+.nav-button:hover{
   opacity: 1;
   background-color: rgba(0, 0, 0, 0.05); /* soft hover feedback */
+}
+
+.nav-button:touched {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .nav-button.left {

@@ -6,10 +6,12 @@ const wChinese = 1.2 * rootFontSize; //1.2rem
 const charsPerColumn = Math.floor((window.innerHeight * 0.98 - 44) / wChinese);
 const columnsPerPage = Math.floor((window.innerWidth * 0.98 - 24) / (wChinese * 2 + 1));
 //const totalColumns = Math.ceil(text.length / charsPerColumn);
+const paper = document.getElementById("paper");
 
 let currentPage = 0;
 let totalPages = 0;
 let allColumns = [];
+let currentOffset = 0;
 
 function buildColumns(text, charsPerColumn) {
   const columns = [];
@@ -59,29 +61,62 @@ async function loadAndPrepareColumns(filePath) {
 }
 
 function renderPage(page) {
-  const paper = document.getElementById("paper");
+  //const paper = document.getElementById("paper");
   paper.innerHTML = ""; //clear current columns
   const start = page * columnsPerPage;
   const end = start + columnsPerPage;
   allColumns.slice(start, end).forEach(col => paper.appendChild(col));
 }
 
-function nextPage() {
+function renderNextPage() {
   if (currentPage < totalPages - 1) {
+    // currentOffset += 100;
+    // paper.style.transform = `translateX(${currentOffset}vw)`;
     currentPage++;
     renderPage(currentPage);
-    const offset = 0;
-    paper.style.transform = `translateX(${offset}px)`;
   }
 }
 
-function prevPage() {
+function renderPrevPage() {
   if (currentPage > 0) {
+    // currentOffset -= 100;
+    // paper.style.transform = `translateX(${currentOffset}vw)`;
     currentPage--;
-    const offset = 0;
-    paper.style.transform = `translateX(${offset}px)`;
     renderPage(currentPage);
   }
+}
+
+function nextPage() {
+  animateAndChangePage('next');
+}
+
+function prevPage() {
+  animateAndChangePage('prev');
+}
+
+function animateAndChangePage(direction) {
+  //const paper = document.getElementById('paper');
+
+  // Step 1: Animate out
+  const offset = direction === 'next' ? -100 : 100;
+  paper.style.transition = 'transform 0.4s ease';
+  paper.style.transform = `translateX(${offset}vw)`;
+
+  // Step 2: After animation, reset and load new content
+  setTimeout(() => {
+    // Step 2.1: Immediately reset position *without animation*
+    paper.style.transition = 'none';
+    paper.style.transform = `translateX(${direction === 'next' ? 100 : -100}vw)`;
+
+    // Step 2.2: Render the new page
+    direction === 'next' ? renderNextPage() : renderPrevPage();
+
+    // Step 3: Animate it into place
+    setTimeout(() => {
+      paper.style.transition = 'transform 0.4s ease';
+      paper.style.transform = 'translateX(0)';
+    }, 20); // Allow a tick so the browser registers the reset
+  }, 400);
 }
 
 loadAndPrepareColumns("raw.txt");
