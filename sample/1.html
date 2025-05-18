@@ -77,11 +77,11 @@
       color: tomato;
       opacity: 0;
       transition: opacity 0.3s ease;
-      cursor: pointer;
-      pointer-events: auto;
+      cursor: pointer; /*visual clickable*/
+      /* pointer-events: auto; /*default, clickable*/
       z-index: 10; /*stacked above other elements*/
-      -webkit-tap-highlight-color: transparent;
-      outline: none;
+      /*-webkit-tap-highlight-color: transparent;
+      outline: none; */
     }
 
     .nav-button:hover{
@@ -89,7 +89,7 @@
       background-color: rgba(0, 0, 0, 0.05); /* soft hover feedback */
     }
 
-    .nav-button:touched {
+    .nav-button.touched {
       opacity: 1;
       background-color: rgba(0, 0, 0, 0.05);
     }
