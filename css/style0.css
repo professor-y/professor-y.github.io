@@ -1,12 +1,12 @@
 html, body {
   height: 100%;
-  margin: 0;
-}
+  margin: 0;}
 
 body {
   display: flex;
   justify-content: center; /*horizontal*/
   align-items: center; /*vertical*/
+  /* background-color: #fffaf0; */
   font-family: 'font0', sans-serif, 'Noto Serif TC', serif;
 }
 
@@ -22,23 +22,32 @@ body {
 .paper {
   display: flex;
   flex-direction: row-reverse;
-  height: 98dvh; /*dynamic viewport height for safari mobile*/
+  height: 98vh;
   width: 98vw;
   box-sizing: border-box;
+  /* justify-content: center; */
+  /* align-items: flex-start; */
+  /* padding: 20px 0; /*only top bottom*/
   padding: 20px 10px;
   border: 2px solid #000;
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
   overflow-x: auto;
   background-color: #FEF2E3; /* #fffaf0 */
+  transition: transform 0.6s ease;
+  will-change: transform;
+  /* transform-style: preserve-3d; /* flip effect */
 }
 
 .column {
   writing-mode: vertical-rl;
   text-orientation: upright;
+  /* font-size: 20px; */
   font-size: 1.2rem;
   line-height: 2;
+  /* padding: 0 12px; */
   border-left: 1px solid #aaa;
   height: 100%;
+  /* margin: 0; */
 }
 
 .column.title {
@@ -49,34 +58,38 @@ body {
 .nav-button {
   position: absolute;
   top: 0;
-  width: 30vw;
+  width: 20vw;
   height: 100vh;
   background: transparent;
   border: none;
-  /*opacity: 0;*/
-  cursor: pointer; /*visual clickable*/
+  font-size: 2rem;
+  color: tomato;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  pointer-events: auto;
   z-index: 10; /*stacked above other elements*/
-  /*-webkit-tap-highlight-color: transparent;*/
-  /*outline: none;*/
+}
+
+.nav-button:hover{
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05); /* soft hover feedback */
+}
+
+.nav-button:touched {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .nav-button.left {
   left: 0;
   text-align: left;
+  padding-left: 20px;
 }
 
 .nav-button.right {
   right: 0;
   text-align: right;
-}
-
-.loading-msg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
-  font-family: sans-serif;
-  color: #444;
+  padding-right: 20px;
 }
 
