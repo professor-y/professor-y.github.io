@@ -69,42 +69,41 @@
     .nav-button {
       position: absolute;
       top: 0;
-      width: 20vw;
+      width: 30vw;
       height: 100vh;
-      /*background: transparent;*/
+      background: transparent;
       border: none;
-      font-size: 2rem;
-      color: tomato;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      /*font-size: 2rem;*/
+      /*color: tomato;*/
+      /*opacity: 0;*/
+      /*transition: opacity 0.3s ease;*/
       cursor: pointer; /*visual clickable*/
       /* pointer-events: auto; /*default, clickable*/
       z-index: 10; /*stacked above other elements*/
-      -webkit-tap-highlight-color: transparent;
-      outline: none;
+      /*-webkit-tap-highlight-color: transparent;
+      outline: none;*/
     }
 
-    @media (hover: hover) and (pointer: fine) {
+    /*@media (hover: hover) and (pointer: fine) {
     .nav-button:hover{
       opacity: 1;
-      /*background-color: rgba(0, 0, 0, 0.05);*/
-    } }
- 
-    .nav-button.touched {
-      opacity: 1;
       background-color: rgba(0, 0, 0, 0.05);
-    }
+    } }*/
+ 
+    /*.nav-button.touched {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.05); }*/
 
     .nav-button.left {
       left: 0;
       text-align: left;
-      padding-left: 20px;
+      /*padding-left: 20px;*/
     }
 
     .nav-button.right {
       right: 0;
       text-align: right;
-      padding-right: 20px;
+      /*padding-right: 20px;*/
     }
 
     .loading-msg {
@@ -134,8 +133,8 @@
   <body>
     <div class="loading-msg" id="loading-message"> 載入中… </div>
 
-    <button class="nav-button left" onclick="nextPage()">&lt;</button>
-    <button class="nav-button right" onclick="prevPage()">&gt;</button>
+    <button class="nav-button left" onclick="nextPage()"></button>
+    <button class="nav-button right" onclick="prevPage()"></button>
     <div class="paper" id="paper"></div>
 
     <!-- <script src="../js/renderPage.js"></script> -->
@@ -253,14 +252,14 @@
     //  handleGesture();
     //}, false);
 
-    document.querySelectorAll('.nav-button').forEach(btn => {
-      btn.addEventListener('touchstart', () => {
-        btn.classList.add('touched');
-        setTimeout(() => {
-          btn.classList.remove('touched');
-        }, 400); // vanish after 400ms
-      });
-    });
+    //document.querySelectorAll('.nav-button').forEach(btn => {
+    //  btn.addEventListener('touchstart', () => {
+    //    btn.classList.add('touched');
+    //    setTimeout(() => {
+    //      btn.classList.remove('touched');
+    //    }, 400); // vanish after 400ms
+    //  });
+    //});
 
     </script>
   </body>
