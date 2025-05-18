@@ -89,11 +89,11 @@
       /*background-color: rgba(0, 0, 0, 0.05);*/
     }
  
-    /*.nav-button:hover,*/
+    /*.nav-button:hover,
     .nav-button.touched {
       opacity: 1;
       background-color: rgba(0, 0, 0, 0.05);
-    }
+    }*/
 
     .nav-button.left {
       left: 0;
@@ -255,9 +255,9 @@
 
     document.querySelectorAll('.nav-button').forEach(btn => {
       btn.addEventListener('touchstart', () => {
-        btn.classList.add('touched');
+        btn.classList.add('hover');
         setTimeout(() => {
-          btn.classList.remove('touched');
+          btn.classList.remove('hover');
         }, 400); // vanish after 400ms
       });
     });
