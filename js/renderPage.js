@@ -70,12 +70,16 @@ function nextPage() {
   if (currentPage < totalPages - 1) {
     currentPage++;
     renderPage(currentPage);
+    const offset = 0;
+    paper.style.transform = `translateX(${offset}px)`;
   }
 }
 
 function prevPage() {
   if (currentPage > 0) {
     currentPage--;
+    const offset = 0;
+    paper.style.transform = `translateX(${offset}px)`;
     renderPage(currentPage);
   }
 }
@@ -91,10 +95,10 @@ let touchEndX = 0;
 function handleGesture() {
   const threshold = 50; // min swipe distance
   if (touchEndX < touchStartX - threshold) {
-    nextPage();
+    prevPage();
   }
   if (touchEndX > touchStartX + threshold) {
-    prevPage();
+    nextPage();
   }
 }
 

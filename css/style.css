@@ -34,6 +34,8 @@ body {
   overflow-x: auto;
   background-color: #FEF2E3; /* #fffaf0 */
   transition: transform 0.6s ease;
+  will-change: transform;
+  /* transform-style: preserve-3d; /* flip effect */
 }
 
 .column {
@@ -65,7 +67,8 @@ body {
   opacity: 0;
   transition: opacity 0.3s ease;
   cursor: pointer;
-  z-index: 10;
+  pointer-events: auto;
+  z-index: 10; /*stacked above other elements*/
 }
 
 .nav-button:hover,
