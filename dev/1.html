@@ -33,7 +33,7 @@
     .paper {
       display: flex;
       flex-direction: row-reverse;
-      height: 98vh;
+      height: 98dvh; /*dynamic viewport height*/
       width: 98vw;
       box-sizing: border-box;
       /* justify-content: center; */
@@ -69,58 +69,85 @@
     .nav-button {
       position: absolute;
       top: 0;
-      width: 20vw;
+      width: 30vw;
       height: 100vh;
       background: transparent;
       border: none;
-      font-size: 2rem;
-      color: tomato;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      cursor: pointer;
-      pointer-events: auto;
+      /*font-size: 2rem;*/
+      /*color: tomato;*/
+      /*opacity: 0;*/
+      /*transition: opacity 0.3s ease;*/
+      cursor: pointer; /*visual clickable*/
+      /* pointer-events: auto; /*default, clickable*/
       z-index: 10; /*stacked above other elements*/
+      /*-webkit-tap-highlight-color: transparent;
+      outline: none;*/
     }
 
+    /*@media (hover: hover) and (pointer: fine) {
     .nav-button:hover{
       opacity: 1;
-      background-color: rgba(0, 0, 0, 0.05); /* soft hover feedback */
-    }
-
-    .nav-button:touched {
-      opacity: 1;
       background-color: rgba(0, 0, 0, 0.05);
-    }
+    } }*/
+ 
+    /*.nav-button.touched {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.05); }*/
 
     .nav-button.left {
       left: 0;
       text-align: left;
-      padding-left: 20px;
+      /*padding-left: 20px;*/
     }
 
     .nav-button.right {
       right: 0;
       text-align: right;
-      padding-right: 20px;
+      /*padding-right: 20px;*/
     }
+
+    .loading-msg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      font-family: sans-serif;
+      color: #444;
+    }
+
+    /*
+    body.loading .paper,
+    body.loading .nav-button {
+      display: none;
+    }
+
+    .paper,
+    .nav-button {
+      display: block;
+    } */
 
     </style>
   </head>
 
   <body>
-    <button class="nav-button left" onclick="nextPage()">&lt;</button>
-    <button class="nav-button right" onclick="prevPage()">&gt;</button>
+    <div class="loading-msg" id="loading-message"> 載入中… </div>
+
+    <button class="nav-button left" onclick="nextPage()"></button>
+    <button class="nav-button right" onclick="prevPage()"></button>
     <div class="paper" id="paper"></div>
 
     <!-- <script src="../js/renderPage.js"></script> -->
     <script>
+    //document.body.classList.add('loading');
+
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
     const wChinese = 1.2 * rootFontSize; //1.2rem
     //const charsPerColumn = 40; // H * 95vh - borderAndPadding...
     const charsPerColumn = Math.floor((window.innerHeight * 0.98 - 44) / wChinese);
     const columnsPerPage = Math.floor((window.innerWidth * 0.98 - 24) / (wChinese * 2 + 1));
     //const totalColumns = Math.ceil(text.length / charsPerColumn);
-    const paper = document.getElementById("paper");
+    //const paper = document.getElementById("paper");
 
     let currentPage = 0;
     let totalPages = 0;
@@ -168,13 +195,18 @@
         totalPages = Math.ceil(allColumns.length / columnsPerPage);
 
         renderPage(currentPage);
+
+        //document.getElementById("loading-message").style.display = "none";
+        document.getElementById("loading-message").remove();
+        //document.body.classList.remove('loading');
+
       } catch (e) {
         console.error("Failed to load or process text:", e);
       }
     }
 
     function renderPage(page) {
-      //const paper = document.getElementById("paper");
+      const paper = document.getElementById("paper");
       paper.innerHTML = ""; //clear current columns
       const start = page * columnsPerPage;
       const end = start + columnsPerPage;
@@ -195,7 +227,8 @@
       }
     }
 
-    loadAndPrepareColumns("raw.txt");
+    //loadAndPrepareColumns("raw.txt");
+    document.fonts.ready.then(() => { loadAndPrepareColumns("raw.txt"); });
 
     window.addEventListener('resize', () => location.reload()); // refresh on resize for now
 
@@ -219,14 +252,14 @@
     //  handleGesture();
     //}, false);
 
-    document.querySelectorAll('.nav-button').forEach(btn => {
-      btn.addEventListener('touchstart', () => {
-        btn.classList.add('touched');
-        setTimeout(() => {
-          btn.classList.remove('touched');
-        }, 400); // vanish after 400ms
-      });
-    });
+    //document.querySelectorAll('.nav-button').forEach(btn => {
+    //  btn.addEventListener('touchstart', () => {
+    //    btn.classList.add('touched');
+    //    setTimeout(() => {
+    //      btn.classList.remove('touched');
+    //    }, 400); // vanish after 400ms
+    //  });
+    //});
 
     </script>
   </body>
