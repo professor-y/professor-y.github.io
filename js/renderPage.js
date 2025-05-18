@@ -84,3 +84,35 @@ loadAndPrepareColumns("raw.txt");
 
 window.addEventListener('resize', () => location.reload()); // refresh on resize for now
 
+//---------------------------------------------
+let touchStartX = 0;
+let touchEndX = 0;
+
+function handleGesture() {
+  const threshold = 50; // min swipe distance
+  if (touchEndX < touchStartX - threshold) {
+    nextPage();
+  }
+  if (touchEndX > touchStartX + threshold) {
+    prevPage();
+  }
+}
+
+document.addEventListener('touchstart', e => {
+  touchStartX = e.changedTouches[0].screenX;
+}, false);
+
+document.addEventListener('touchend', e => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleGesture();
+}, false);
+
+document.querySelectorAll('.nav-button').forEach(btn => {
+  btn.addEventListener('touchstart', () => {
+    btn.classList.add('touched');
+    setTimeout(() => {
+      btn.classList.remove('touched');
+    }, 400); // vanish after 400ms
+  });
+});
+

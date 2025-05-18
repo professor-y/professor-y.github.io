@@ -61,14 +61,15 @@ body {
   background: transparent;
   border: none;
   font-size: 2rem;
-  color: black;
+  color: tomato;
   opacity: 0;
   transition: opacity 0.3s ease;
   cursor: pointer;
   z-index: 10;
 }
 
-.nav-button:hover {
+.nav-button:hover,
+.nav-button:touched {
   opacity: 1;
   background-color: rgba(0, 0, 0, 0.05); /* soft hover feedback */
 }
