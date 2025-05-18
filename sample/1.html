@@ -84,16 +84,16 @@
       outline: none;
     }
 
+    @media (hover: hover) and (pointer: fine) {
     .nav-button:hover{
       opacity: 1;
       /*background-color: rgba(0, 0, 0, 0.05);*/
-    }
+    } }
  
-    /*.nav-button:hover,
     .nav-button.touched {
       opacity: 1;
       background-color: rgba(0, 0, 0, 0.05);
-    }*/
+    }
 
     .nav-button.left {
       left: 0;
@@ -255,9 +255,9 @@
 
     document.querySelectorAll('.nav-button').forEach(btn => {
       btn.addEventListener('touchstart', () => {
-        btn.classList.add('hover');
+        btn.classList.add('touched');
         setTimeout(() => {
-          btn.classList.remove('hover');
+          btn.classList.remove('touched');
         }, 400); // vanish after 400ms
       });
     });
