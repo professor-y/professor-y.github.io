@@ -104,48 +104,23 @@
       padding-right: 20px;
     }
 
-    .loading-msg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2rem;
-      font-family: sans-serif;
-      color: #444;
-    }
-
-    /*
-    body.loading .paper,
-    body.loading .nav-button {
-      display: none;
-    }
-
-    .paper,
-    .nav-button {
-      display: block;
-    } */
-
     </style>
   </head>
 
   <body>
-    <div class="loading-msg" id="loading-message"> 載入中… </div>
-
     <button class="nav-button left" onclick="nextPage()">&lt;</button>
     <button class="nav-button right" onclick="prevPage()">&gt;</button>
     <div class="paper" id="paper"></div>
 
     <!-- <script src="../js/renderPage.js"></script> -->
     <script>
-    //document.body.classList.add('loading');
-
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
     const wChinese = 1.2 * rootFontSize; //1.2rem
     //const charsPerColumn = 40; // H * 95vh - borderAndPadding...
     const charsPerColumn = Math.floor((window.innerHeight * 0.98 - 44) / wChinese);
     const columnsPerPage = Math.floor((window.innerWidth * 0.98 - 24) / (wChinese * 2 + 1));
     //const totalColumns = Math.ceil(text.length / charsPerColumn);
-    //const paper = document.getElementById("paper");
+    const paper = document.getElementById("paper");
 
     let currentPage = 0;
     let totalPages = 0;
@@ -193,18 +168,13 @@
         totalPages = Math.ceil(allColumns.length / columnsPerPage);
 
         renderPage(currentPage);
-
-        //document.getElementById("loading-message").style.display = "none";
-        document.getElementById("loading-message").remove();
-        //document.body.classList.remove('loading');
-
       } catch (e) {
         console.error("Failed to load or process text:", e);
       }
     }
 
     function renderPage(page) {
-      const paper = document.getElementById("paper");
+      //const paper = document.getElementById("paper");
       paper.innerHTML = ""; //clear current columns
       const start = page * columnsPerPage;
       const end = start + columnsPerPage;
@@ -225,8 +195,7 @@
       }
     }
 
-    //loadAndPrepareColumns("raw.txt");
-    document.fonts.ready.then(() => { loadAndPrepareColumns("raw.txt"); });
+    loadAndPrepareColumns("raw.txt");
 
     window.addEventListener('resize', () => location.reload()); // refresh on resize for now
 
