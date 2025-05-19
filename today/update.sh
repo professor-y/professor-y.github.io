@@ -35,6 +35,7 @@ fi
 # default...
 TITLE="THE GRAND MASTER'S JOURNAL ($DATE_STR)"
 DESCRIPTION="Private Journal | Personal Blog | NOT meant for everyone to read"
+URLAPPEND="$YEAR/$MONTH/$DAY/"
 # config...
 # TITLE="Here can I write sth... ($DATE_STR)"
 # DESCRIPTION="change it if wanted..."
@@ -45,6 +46,7 @@ if [ ! -e $DEST_DIR/index.html ]; then
   sed \
     -e "s/XXXX/${TITLE}/g" \
     -e "s/ZZZZ/${DESCRIPTION}/g" \
+    -e "s|JJJJ|${URLAPPEND}|g" \
     ./dev/template.html > "$DEST_DIR/index.html"
 else
   echo "index.html already exists, skipping copy."

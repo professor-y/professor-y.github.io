@@ -7,7 +7,7 @@ body {
   display: flex;
   justify-content: center; /*horizontal*/
   align-items: center; /*vertical*/
-  font-family: 'font0', sans-serif, 'Noto Serif TC', serif;
+  font-family: 'font0', sans-serif, "Microsoft JhengHei", "Microsoft YaHei", "PingFang TC", "Heiti TC";
 }
 
 @font-face {
