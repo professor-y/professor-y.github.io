@@ -32,9 +32,20 @@ else
   echo "raw.txt already exists, skipping copy."
 fi
 
+# default...
+TITLE="THE GRAND MASTER'S JOURNAL ($DATE_STR)"
+DESCRIPTION="Private Journal | Personal Blog | NOT meant for everyone to read"
+# config...
+# TITLE="Here can I write sth... ($DATE_STR)"
+# DESCRIPTION="change it if wanted..."
+
 # Copy index.html template
 if [ ! -e $DEST_DIR/index.html ]; then
-  cp ./dev/template.html "$DEST_DIR/index.html"
+  # cp ./dev/template.html "$DEST_DIR/index.html"
+  sed \
+    -e "s/XXXX/${TITLE}/g" \
+    -e "s/ZZZZ/${DESCRIPTION}/g" \
+    ./dev/template.html > "$DEST_DIR/index.html"
 else
   echo "index.html already exists, skipping copy."
 fi
