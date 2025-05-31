@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" href="../fonts/hw-kai.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <title>Working Sample 1</title>
+    <meta name="description" content="Only Nav buttons, no swip, no animation">
+    <link rel="icon" href="../icon/wen.svg">
+    <!-- <link rel="stylesheet" href="../css/style.css"> -->
+    <style>
+    html, body {
+      height: 100%;
+      margin: 0;}
+
+    body {
+      display: flex;
+      justify-content: center; /*horizontal*/
+      align-items: center; /*vertical*/
+      /* background-color: #fffaf0; */
+      font-family: 'font0', sans-serif, 'Noto Serif TC', serif;
+    }
+
+    @font-face {
+      font-family: 'font0';
+      src: url('../fonts/hw-kai.woff2') format('woff2');
+      /*src: url('../../../fonts/KX.woff2') format('woff2');*/
+      font-weight: 400; /* Regular (400), Bold (700) */
+      font-style: normal;
+      font-display: swap; /* This shows fallback text immediately */
+    }
+
+    .paper {
+      display: flex;
+      flex-direction: row-reverse;
+      height: 98dvh; /*dynamic viewport height for safari mobile*/
+      width: 98vw;
+      box-sizing: border-box;
+      /* justify-content: center; */
+      /* align-items: flex-start; */
+      /* padding: 20px 0; /*only top bottom*/
+      padding: 20px 10px;
+      border: 2px solid #000;
+      box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+      overflow-x: auto;
+      background-color: #FEF2E3; /* #fffaf0 */
+      /* transition: transform 0.6s ease; */
+      /* will-change: transform; */
+      /* transform-style: preserve-3d; /* flip effect */
+    }
+
+    .column {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      /* font-size: 20px; */
+      font-size: 1.2rem;
+      line-height: 2;
+      /* padding: 0 12px; */
+      border-left: 1px solid #aaa;
+      height: 100%;
+      /* margin: 0; */
+    }
+
+    .column.title {
+      color: tomato;
+      font-weight: bold;
+    }
+
+    .nav-button {
+      position: absolute;
+      top: 0;
+      width: 30vw;
+      height: 100vh;
+      background: transparent;
+      border: none;
+      /*font-size: 2rem;*/
+      /*color: tomato;*/
+      /*opacity: 0;*/
+      /*transition: opacity 0.3s ease;*/
+      cursor: pointer; /*visual clickable*/
+      /* pointer-events: auto; /*default, clickable*/
+      z-index: 10; /*stacked above other elements*/
+      /*-webkit-tap-highlight-color: transparent;
+      outline: none;*/
+    }
+
+    /*@media (hover: hover) and (pointer: fine) {
+    .nav-button:hover{
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.05);
+    } }*/
+ 
+    /*.nav-button.touched {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.05); }*/
+
+    .nav-button.left {
+      left: 0;
+      text-align: left;
+      /*padding-left: 20px;*/
+    }
+
+    .nav-button.right {
+      right: 0;
+      text-align: right;
+      /*padding-right: 20px;*/
+    }
+
+    .loading-msg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      font-family: sans-serif;
+      color: #444;
+    }
+
+    /*
+    body.loading .paper,
+    body.loading .nav-button {
+      display: none;
+    }
+
+    .paper,
+    .nav-button {
+      display: block;
+    } */
+
+    </style>
+  </head>
+
+  <body>
+    <div class="loading-msg" id="loading-message"> 載入中… </div>
+
+    <button class="nav-button left" onclick="nextPage()"></button>
+    <button class="nav-button right" onclick="prevPage()"></button>
+    <div class="paper" id="paper"></div>
+
+    <!-- <script src="../js/renderPage.js"></script> -->
+    <script>
+    //document.body.classList.add('loading');
+
+    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const wChinese = 1.2 * rootFontSize; //1.2rem
+    //const charsPerColumn = 40; // H * 95vh - borderAndPadding...
+    const charsPerColumn = Math.floor((window.innerHeight * 0.98 - 44) / wChinese);
+    const columnsPerPage = Math.floor((window.innerWidth * 0.98 - 24) / (wChinese * 2 + 1));
+    //const totalColumns = Math.ceil(text.length / charsPerColumn);
+    //const paper = document.getElementById("paper");
+
+    let currentPage = 0;
+    let totalPages = 0;
+    let allColumns = [];
+
+    function buildColumns(text, charsPerColumn) {
+      const columns = [];
+      const lines = text.split(/\r?\n/); // Handles both \n and \r\n
+
+      lines.forEach(line => {
+        //if (line.startsWith('[[') && line.endsWith(']]')) {
+        //const title = line.slice(2, -2); // Remove brackets [[]]
+        if (line.startsWith('#')) {
+          const title = line.slice(1).trim();
+          const col = document.createElement('div');
+          if (title.length === 0) {
+            col.className = 'column';
+            col.innerHTML = "&nbsp;";
+          } else {
+            col.className = 'column title';
+            col.textContent = title;
+          }
+          columns.push(col);
+        } else {
+          // Break regular text into chunks
+          for (let i = 0; i < line.length; i += charsPerColumn) {
+            const chunk = line.slice(i, i + charsPerColumn);
+            const col = document.createElement('div');
+            col.className = 'column';
+            col.textContent = chunk;
+            columns.push(col);
+          }
+        }
+      });
+      return columns;
+    }
+
+    async function loadAndPrepareColumns(filePath) {
+      try {
+        const response = await fetch(filePath);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const text = await response.text();
+
+        allColumns = buildColumns(text, charsPerColumn);
+        totalPages = Math.ceil(allColumns.length / columnsPerPage);
+
+        renderPage(currentPage);
+
+        //document.getElementById("loading-message").style.display = "none";
+        document.getElementById("loading-message").remove();
+        //document.body.classList.remove('loading');
+
+      } catch (e) {
+        console.error("Failed to load or process text:", e);
+      }
+    }
+
+    function renderPage(page) {
+      const paper = document.getElementById("paper");
+      paper.innerHTML = ""; //clear current columns
+      const start = page * columnsPerPage;
+      const end = start + columnsPerPage;
+      allColumns.slice(start, end).forEach(col => paper.appendChild(col));
+    }
+
+    function nextPage() {
+      if (currentPage < totalPages - 1) {
+        currentPage++;
+        renderPage(currentPage);
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        renderPage(currentPage);
+      }
+    }
+
+    //loadAndPrepareColumns("raw.txt");
+    document.fonts.ready.then(() => { loadAndPrepareColumns("raw.txt"); });
+
+    window.addEventListener('resize', () => location.reload()); // refresh on resize for now
+
+    //---------------------------------------------
+    //let touchStartX = 0;
+    //let touchEndX = 0;
+    //function handleGesture() {
+    //  const threshold = 50; // min swipe distance
+    //  if (touchEndX < touchStartX - threshold) {
+    //    prevPage();
+    //  }
+    //  if (touchEndX > touchStartX + threshold) {
+    //    nextPage();
+    //  }
+    //}
+    //document.addEventListener('touchstart', e => {
+    //  touchStartX = e.changedTouches[0].screenX;
+    //}, false);
+    //document.addEventListener('touchend', e => {
+    //  touchEndX = e.changedTouches[0].screenX;
+    //  handleGesture();
+    //}, false);
+
+    //document.querySelectorAll('.nav-button').forEach(btn => {
+    //  btn.addEventListener('touchstart', () => {
+    //    btn.classList.add('touched');
+    //    setTimeout(() => {
+    //      btn.classList.remove('touched');
+    //    }, 400); // vanish after 400ms
+    //  });
+    //});
+
+    </script>
+  </body>
+</html>
+

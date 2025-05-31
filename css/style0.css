@@ -1,0 +1,95 @@
+html, body {
+  height: 100%;
+  margin: 0;}
+
+body {
+  display: flex;
+  justify-content: center; /*horizontal*/
+  align-items: center; /*vertical*/
+  /* background-color: #fffaf0; */
+  font-family: 'font0', sans-serif, 'Noto Serif TC', serif;
+}
+
+@font-face {
+  font-family: 'font0';
+  src: url('../../../fonts/hw-kai.woff2') format('woff2');
+  /*src: url('../../../fonts/KX.woff2') format('woff2');*/
+  font-weight: 400; /* Regular (400), Bold (700) */
+  font-style: normal;
+  font-display: swap; /* This shows fallback text immediately */
+}
+
+.paper {
+  display: flex;
+  flex-direction: row-reverse;
+  height: 98vh;
+  width: 98vw;
+  box-sizing: border-box;
+  /* justify-content: center; */
+  /* align-items: flex-start; */
+  /* padding: 20px 0; /*only top bottom*/
+  padding: 20px 10px;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+  overflow-x: auto;
+  background-color: #FEF2E3; /* #fffaf0 */
+  transition: transform 0.6s ease;
+  will-change: transform;
+  /* transform-style: preserve-3d; /* flip effect */
+}
+
+.column {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  /* font-size: 20px; */
+  font-size: 1.2rem;
+  line-height: 2;
+  /* padding: 0 12px; */
+  border-left: 1px solid #aaa;
+  height: 100%;
+  /* margin: 0; */
+}
+
+.column.title {
+  color: tomato;
+  font-weight: bold;
+}
+
+.nav-button {
+  position: absolute;
+  top: 0;
+  width: 20vw;
+  height: 100vh;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: tomato;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 10; /*stacked above other elements*/
+}
+
+.nav-button:hover{
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05); /* soft hover feedback */
+}
+
+.nav-button:touched {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.nav-button.left {
+  left: 0;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.nav-button.right {
+  right: 0;
+  text-align: right;
+  padding-right: 20px;
+}
+

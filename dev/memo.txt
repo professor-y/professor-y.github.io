@@ -1,0 +1,14 @@
+
+The first solution: feed all text into col list, render only current page.
+Hover button on desktop works fine, yet causes problem on mobile.
+
+1-0: works fine except on mobile. No loading message.
+
+1-1: with Loading message. Removed hover, touch effects, leaving naked transparent buttons.
+     good enough for me.
+
+The second approach: render all pages right at the beginning. Easier for page translatex animation.
+Maybe later.
+
+---------------------------------
+template page for english text

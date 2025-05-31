@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+/* reset all, do it myself */
+
+body {
+  margin: 1rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px;
+  border: 2px solid #888;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+  /* background-color: #FEF2E3; #fffaf0 */
+}
+
+/*
+@media (min-width: 768px) {
+  body {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+*/
+
+@font-face {
+  font-family: 'kangxi';
+  /* src: url('/fonts/hw-kai.woff2') format('woff2'); */
+  src: url('/fonts/KX.woff2') format('woff2');
+  font-weight: normal; /* Regular (400), Bold (700) */
+  font-style: normal;
+  font-display: swap; /* This shows fallback text immediately */
+}
+
+@font-face {
+  font-family: 'chenyu';
+  src: url('/fonts/chenyu.woff2') format('woff2');
+  font-weight: normal; /* Regular (400), Bold (700) */
+  font-style: normal;
+  font-display: swap; /* This shows fallback text immediately */
+}
+
+h1 {
+  font-family: 'kangxi', sans-serif;
+  font-size: 2.5rem;
+  color: #333;  /* Smooth dark grey for elegance */
+  border-bottom: 2px solid #888;
+  padding-bottom: 0.7rem;  /* Gives the border some breathing space */
+  margin-top: 1rem;
+  margin-bottom: 1rem;  /* Pushes content below it down a bit */
+}
+
+.title {
+  font-family: 'kangxi', sans-serif;
+  color: #2c3e50;
+  font-size: 2rem;
+  line-height: 1.5;
+}
+
+.intro {
+  font-family: 'chenyu', 'kangxi', sans-serif;
+  color: #2c3e50; /* deep classy navy */
+  font-size: 2rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: tomato;
+}
+
+a:visited {
+  color: tomato;
+}
+
+a:active {
+  color: red;
+}
+
+.title-en {
+  font-family: 'chenyu', sans-serif;
+  font-size: 2.5rem;
+  color: #333;  /* Smooth dark grey for elegance */
+  border-bottom: 2px solid #888;
+  padding-bottom: 0.7rem;  /* Gives the border some breathing space */
+  margin-top: 1rem;
+  margin-bottom: 2rem;  /* Pushes content below it down a bit */
+}
+
