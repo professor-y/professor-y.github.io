@@ -90,8 +90,8 @@ a:active {
 }
 
 footer {
-  text-align: center;
-  font-size: 0.875rem;
+  /* text-align: center; */
+  font-size: 0.75rem;
   color: #777;
   padding: 2em 0;
 }

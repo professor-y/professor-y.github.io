@@ -12,7 +12,7 @@ But it is probably a waste of your time.
 
 🛡️ License:
 
-All content in this repository — including writing and code — is © 2025 [professor-y].
+All content in this repository — including writing and code — is © 2025 professor-y.
 
 All rights reserved, except where noted (e.g., fonts and icons).
 
