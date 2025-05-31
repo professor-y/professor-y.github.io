@@ -1,6 +1,6 @@
 const repoOwner = "professor-y";
 const repoName = "professor-y.github.io";
-const branch = "master";
+const branch = "main";
 
 async function fetchGitHubData() {
   const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/git/trees/${branch}?recursive=1`;

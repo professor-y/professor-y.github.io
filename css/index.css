@@ -89,3 +89,10 @@ a:active {
   margin-bottom: 2rem;  /* Pushes content below it down a bit */
 }
 
+footer {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #777;
+  padding: 2em 0;
+}
+
