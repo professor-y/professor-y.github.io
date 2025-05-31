@@ -11,4 +11,5 @@ The second approach: render all pages right at the beginning. Easier for page tr
 Maybe later.
 
 ---------------------------------
-template page for english text
+always check git config user.name and user.email
+
